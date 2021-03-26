@@ -1,5 +1,9 @@
 package com.example.oauth2provider.client;
 
+import java.util.UUID;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientRegistrationService;
 import org.springframework.stereotype.Controller;
@@ -9,9 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/client")
@@ -24,11 +25,13 @@ public class ClientController {
     public ModelAndView register(ModelAndView mv) {
         mv.setViewName("client/register");
         mv.addObject("registry", new BasicClientInfo());
+
         return mv;
     }
 
     @PostMapping("/save")
     public ModelAndView save(@Valid BasicClientInfo clientDetails, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             return new ModelAndView("client/register");
         }
@@ -41,22 +44,24 @@ public class ClientController {
         app.setClientSecret(UUID.randomUUID().toString());
         app.setAccessTokenValidity(3000);
         app.addScope("read_profile");
-        app.addScope("read_contracts");
+        app.addScope("read_contacts");
+
         clientRegistrationService.addClientDetails(app);
 
+        // create client details in database
         ModelAndView mv = new ModelAndView("redirect:/client/dashboard");
         mv.addObject("applications", clientRegistrationService.listClientDetails());
 
         return mv;
     }
 
-
     @GetMapping("/remove")
     public ModelAndView remove(@RequestParam(value = "client_id", required = false) String clientId) {
+
         clientRegistrationService.removeClientDetails(clientId);
+
         ModelAndView mv = new ModelAndView("redirect:/client/dashboard");
         mv.addObject("applications", clientRegistrationService.listClientDetails());
-
         return mv;
     }
 

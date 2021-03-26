@@ -21,7 +21,7 @@ public class Application implements ClientDetails {
     }
 
     public void setClientType(ClientType clientType) {
-        this.clientType = clientType;
+        additionalInfomation.put("client_type", clientType.name());
     }
 
     public void setClientId(String clientId) {
@@ -55,7 +55,7 @@ public class Application implements ClientDetails {
 
     @Override
     public Set<String> getResourceIds() {
-        return resourceIds;
+        return Collections.unmodifiableSet(resourceIds);
     }
 
     @Override
@@ -75,12 +75,12 @@ public class Application implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
-        return scope;
+        return Collections.unmodifiableSet(scope);
     }
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        return webServerRedirectUri;
+        return Collections.unmodifiableSet(webServerRedirectUri);
     }
 
     @Override
