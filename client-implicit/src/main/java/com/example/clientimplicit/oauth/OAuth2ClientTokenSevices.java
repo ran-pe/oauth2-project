@@ -1,5 +1,7 @@
 package com.example.clientimplicit.oauth;
 
+import java.util.Calendar;
+
 import com.example.clientimplicit.security.ClientUserDetails;
 import com.example.clientimplicit.user.ClientUser;
 import com.example.clientimplicit.user.UserRepository;
@@ -11,10 +13,10 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 
 @Service
-public class OAuth2ClientTokenServices implements ClientTokenServices {
+public class OAuth2ClientTokenSevices implements ClientTokenServices {
+    //@formatter:off
 
     @Autowired
     private UserRepository users;
@@ -35,7 +37,8 @@ public class OAuth2ClientTokenServices implements ClientTokenServices {
     }
 
     @Override
-    public void saveAccessToken(OAuth2ProtectedResourceDetails resource, Authentication authentication, OAuth2AccessToken accessToken) {
+    public void saveAccessToken(OAuth2ProtectedResourceDetails resource,
+                                Authentication authentication, OAuth2AccessToken accessToken) {
         Calendar expirationDate = Calendar.getInstance();
         expirationDate.setTime(accessToken.getExpiration());
 
@@ -48,7 +51,8 @@ public class OAuth2ClientTokenServices implements ClientTokenServices {
     }
 
     @Override
-    public void removeAccessToken(OAuth2ProtectedResourceDetails resource, Authentication authentication) {
+    public void removeAccessToken(OAuth2ProtectedResourceDetails resource,
+                                  Authentication authentication) {
         ClientUser clientUser = getClientUser(authentication);
 
         clientUser.setAccessToken(null);
@@ -64,4 +68,6 @@ public class OAuth2ClientTokenServices implements ClientTokenServices {
         ClientUser clientUser = users.findOne(userId);
         return clientUser;
     }
+
+    //@formatter:on
 }

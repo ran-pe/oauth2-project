@@ -1,5 +1,8 @@
 package com.example.clientimplicit.oauth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.resource.UserRedirectRequiredException;
 import org.springframework.security.oauth2.client.token.AccessTokenProvider;
@@ -7,9 +10,6 @@ import org.springframework.security.oauth2.client.token.AccessTokenRequest;
 import org.springframework.security.oauth2.client.token.grant.implicit.ImplicitResourceDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class CustomImplicitAccessTokenProvider implements AccessTokenProvider {
 

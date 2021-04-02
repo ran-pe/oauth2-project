@@ -1,5 +1,7 @@
 package com.example.clientimplicit.security;
 
+import java.util.Optional;
+
 import com.example.clientimplicit.user.ClientUser;
 import com.example.clientimplicit.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 
 @Service

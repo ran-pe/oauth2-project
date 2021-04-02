@@ -1,5 +1,7 @@
 package com.example.clientimplicit.oauth;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +14,6 @@ import org.springframework.security.oauth2.client.token.grant.implicit.ImplicitR
 import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 
-import java.util.Arrays;
-
 @Configuration
 @EnableOAuth2Client
 public class ClientConfiguration {
@@ -21,6 +21,7 @@ public class ClientConfiguration {
     @Autowired
     private ClientTokenServices clientTokenServices;
 
+    @Autowired
     private OAuth2ClientContext oauth2ClientContext;
 
     @Bean
@@ -57,4 +58,5 @@ public class ClientConfiguration {
 
         return template;
     }
+
 }
