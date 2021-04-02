@@ -1,21 +1,25 @@
 package com.example.clientpassword.security;
 
-import com.example.clientpassword.user.ClientUser;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.HashSet;
 
+import com.example.clientpassword.user.ClientUser;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Getter
-@AllArgsConstructor
+
 public class ClientUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private ClientUser clientUser;
+
+    public ClientUserDetails(ClientUser user) {
+        this.clientUser = user;
+    }
+
+    public ClientUser getClientUser() {
+        return clientUser;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -51,4 +55,5 @@ public class ClientUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
