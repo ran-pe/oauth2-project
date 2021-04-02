@@ -1,6 +1,7 @@
 package com.example.clientauthorizationcode.oauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -18,7 +19,8 @@ import java.util.Arrays;
 @EnableOAuth2Client
 public class ClientConfiguration {
 
-    private OAuth2ClientTokenServices OAuth2ClientTokenServices;
+    @Autowired
+    private OAuth2ClientTokenSevices oAuth2ClientTokenSevices;
 
     private OAuth2ClientContext oauth2ClientContext;
 
@@ -44,7 +46,7 @@ public class ClientConfiguration {
         OAuth2ProtectedResourceDetails resourceDetails = authorizationCode();
         OAuth2RestTemplate template = new OAuth2RestTemplate(resourceDetails, oauth2ClientContext);
         AccessTokenProviderChain provider = new AccessTokenProviderChain(Arrays.asList(new AuthorizationCodeAccessTokenProvider()));
-        provider.setClientTokenServices(OAuth2ClientTokenServices);
+        provider.setClientTokenServices(oAuth2ClientTokenSevices);
         template.setAccessTokenProvider(provider);
         return template;
     }

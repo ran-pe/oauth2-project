@@ -1,5 +1,7 @@
 package com.example.clientauthorizationcode.user;
 
+import java.util.Arrays;
+
 import com.example.clientauthorizationcode.security.ClientUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,11 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
-
 @Controller
 public class UserDashboard {
 
+    @Autowired
     private OAuth2RestTemplate restTemplate;
 
     @GetMapping("/")

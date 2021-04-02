@@ -3,18 +3,19 @@ package com.example.clientauthorizationcode.oauth;
 import com.example.clientauthorizationcode.security.ClientUserDetails;
 import com.example.clientauthorizationcode.user.ClientUser;
 import com.example.clientauthorizationcode.user.UserRepository;
-import com.mysql.cj.xdevapi.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.token.ClientTokenServices;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 
-public class OAuth2ClientTokenServices implements ClientTokenServices {
+
+@Service
+public class OAuth2ClientTokenSevices implements ClientTokenServices {
 
     @Autowired
     private UserRepository users;
@@ -22,7 +23,8 @@ public class OAuth2ClientTokenServices implements ClientTokenServices {
     private ClientUser getClientUser(Authentication authentication) {
         ClientUserDetails loggedUser = (ClientUserDetails) authentication.getPrincipal();
         Long userId = loggedUser.getClientUser().getId();
-        return users.findOne(userId);
+        ClientUser clientUser = users.findOne(userId);
+        return clientUser;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class OAuth2ClientTokenServices implements ClientTokenServices {
         ClientUser clientUser = getClientUser(authentication);
         String accessToken = clientUser.getAccessToken();
         Calendar expirationDate = clientUser.getAccessTokenValidity();
-        if(accessToken == null) return null;
+        if (accessToken == null) return null;
         DefaultOAuth2AccessToken oAuth2AccessToken = new DefaultOAuth2AccessToken(accessToken);
         oAuth2AccessToken.setExpiration(expirationDate.getTime());
 
